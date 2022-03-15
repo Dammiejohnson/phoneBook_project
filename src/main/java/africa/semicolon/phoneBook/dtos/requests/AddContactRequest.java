@@ -6,7 +6,9 @@ import lombok.Data;
 public class AddContactRequest {
     private String firstName;
     private String lastName;
+    private String middleName;
     private String mobile;
+    private String office;
 
 
 }

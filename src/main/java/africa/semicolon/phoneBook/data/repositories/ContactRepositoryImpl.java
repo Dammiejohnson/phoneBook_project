@@ -42,24 +42,15 @@ public class ContactRepositoryImpl  implements  ContactRepository{
     }
 
     @Override
-    public Contact findByFirstName(String firstName) {
+    public Contact findByName(String name) {
         for (Contact contact : repositoryDb){
-            if(firstName.equalsIgnoreCase(contact.getFirstName())){
+            if(contact.getFirstName().equalsIgnoreCase(name)|| contact.getLastName().equalsIgnoreCase(name) || contact.getMiddleName().equalsIgnoreCase(name)){
                 return contact;
             }
         }
         return null;
     }
 
-    @Override
-    public Contact findByLastName(String lastName) {
-        for (Contact contact : repositoryDb){
-            if(lastName.equalsIgnoreCase(contact.getLastName())){
-                return contact;
-            }
-        }
-        return null;
-    }
 
     @Override
     public Contact findByMobile(String mobile) {

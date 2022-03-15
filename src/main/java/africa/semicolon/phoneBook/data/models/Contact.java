@@ -5,6 +5,7 @@ import lombok.*;
 @Data
 @RequiredArgsConstructor
 @EqualsAndHashCode
+
 public class Contact {
     @NonNull
     private String firstName;

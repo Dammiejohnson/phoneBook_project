@@ -62,7 +62,7 @@ class ContactRepositoryImplTest {
         contactRepository.saveContact(contact2);
         assertEquals(2, contactRepository.count());
         //when we try to save a contact
-        Contact foundContact = contactRepository.findByFirstName("Alhaji");
+        Contact foundContact = contactRepository.findByName("Alhaji");
         //assert
         assertEquals(contact2, foundContact);
 
@@ -73,7 +73,7 @@ class ContactRepositoryImplTest {
         //given that we have 2 contacts
         Contact contact = addContacts();
         //when we try to find a contact by firstname
-        Contact foundContact = contactRepository.findByFirstName("LotAChi");
+        Contact foundContact = contactRepository.findByName("LotAChi");
         //assert
         assertEquals(contact, foundContact);
 
@@ -90,7 +90,7 @@ class ContactRepositoryImplTest {
         assertEquals(2, contactRepository.count());
 
         //when we try to find a contact by lastname
-        Contact foundContact = contactRepository.findByLastName("Solomon");
+        Contact foundContact = contactRepository.findByName("Solomon");
         //assert
         assertEquals(contact2, foundContact);
 
@@ -124,7 +124,7 @@ class ContactRepositoryImplTest {
         //when we try to update a contact firstname
         contact.setFirstName("Otunba");
         contactRepository.saveContact(contact);
-        Contact foundContact = contactRepository.findByFirstName("Otunba");
+        Contact foundContact = contactRepository.findByName("Otunba");
         //Contact foundContact = contactRepository.findByFirstName("lotachi");
 
         //assert

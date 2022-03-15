@@ -8,8 +8,7 @@ public interface ContactRepository {
     Contact saveContact(Contact contact);
     void deleteContact(Contact contact);
     void deleteContactByMobile(String mobile);
-    Contact findByFirstName(String firstName);
-    Contact findByLastName(String lastName);
+    Contact findByName(String name);
     Contact findByMobile(String mobile);
     List<Contact> findAll(Contact contact);
     int count();
