@@ -2,29 +2,34 @@ package africa.semicolon.phoneBook.controllers;
 
 import africa.semicolon.phoneBook.dtos.requests.AddContactRequest;
 import africa.semicolon.phoneBook.dtos.responses.AddContactResponse;
+import africa.semicolon.phoneBook.dtos.responses.DeleteResponse;
 import africa.semicolon.phoneBook.dtos.responses.FindContactResponse;
 import africa.semicolon.phoneBook.services.ContactService;
-import africa.semicolon.phoneBook.services.ContactServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/contact")
 public class ContactController {
-    private ContactService contactService = new ContactServiceImpl();
+
+    @Autowired
+    private ContactService contactService;
 
     @PostMapping("/save")
     public AddContactResponse addContactResponse(@RequestBody AddContactRequest request){
         return contactService.save(request);
     }
 
-    @GetMapping("/(search)")
-    public FindContactResponse findByName(@PathVariable String name){
-        return  contactService.findContactByName(name);
+    @GetMapping("/{keyword}")
+    public List<FindContactResponse> findByName(@PathVariable ("keyword") String name){
+        return contactService.findContactByName(name);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteByMobile(@PathVariable String mobile) {
-        contactService.deleteContactByMobile(mobile);
+    @DeleteMapping("/delete{name}/{mobile}")
+    public DeleteResponse deleteByMobile(@PathVariable String name, @PathVariable String mobile) {
+        return contactService.deleteContact(name,mobile);
 
     }
 
