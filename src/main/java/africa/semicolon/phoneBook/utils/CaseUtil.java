@@ -9,9 +9,13 @@ public class CaseUtil {
         request.setMiddleName(convertCase(request.getMiddleName()));
     }
 
+    public static String ignoreCase(String name) {
+        return convertCase(name);
+    }
+
     private static String convertCase(String name) {
-        name = name.toLowerCase();
-        name = name.replace(name.charAt(0), Character.toUpperCase(name.charAt(0)));
-        return name;
+//        name = name.toLowerCase();
+//        name = name.replace(name.charAt(0), Character.toUpperCase(name.charAt(0)));
+        return Character.toUpperCase(name.charAt(0)) + (name.substring(1)).toLowerCase();
     }
 }

@@ -4,6 +4,7 @@ import africa.semicolon.phoneBook.data.models.Contact;
 import lombok.Data;
 
 @Data
+
 public class FindContactResponse {
     private String firstName;
     private String lastName;

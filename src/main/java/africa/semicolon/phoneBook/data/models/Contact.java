@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
+@NoArgsConstructor
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @Document("Contacts") // this is a row that repreesents contacts

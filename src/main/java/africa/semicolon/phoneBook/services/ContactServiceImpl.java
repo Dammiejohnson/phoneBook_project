@@ -8,6 +8,7 @@ import africa.semicolon.phoneBook.dtos.responses.AddContactResponse;
 import africa.semicolon.phoneBook.dtos.responses.DeleteResponse;
 import africa.semicolon.phoneBook.dtos.responses.FindContactResponse;
 import africa.semicolon.phoneBook.exceptions.ContactNotFoundException;
+import africa.semicolon.phoneBook.utils.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,29 +22,17 @@ public class ContactServiceImpl implements ContactService{
     ContactRepository contactRepository;
     @Override
     public AddContactResponse save(AddContactRequest contactRequest) {
-        Contact contact = new Contact(contactRequest.getFirstName(), contactRequest.getLastName(), contactRequest.getMobile());
-        contact.setMiddleName(contactRequest.getMiddleName());
-        contact.setOffice(contactRequest.getOffice());
-
+        Contact contact = ModelMapper.getContact(contactRequest);
+        if (contactRepository.existsByMobile(contactRequest.getMobile())) throw new ContactNotFoundException("Contact already Exist");
         Contact addedContact = contactRepository.save(contact);
-
-        AddContactResponse response = new AddContactResponse();
-        response.setFullname(addedContact.getFirstName() + " " + addedContact.getLastName() + " " + addedContact.getMiddleName());
-        response.setMobile(addedContact.getMobile());
-        response.setFeedBackResponse("Your contact has been saved in your phonebook");
-        return response;
-
+        return ModelMapper.getAddContactResponse(addedContact);
     }
 
-    private static FindContactResponse findContactResponse (Contact contact){
-        FindContactResponse response = new FindContactResponse();
-        response.setFirstName(contact.getFirstName());
-        response.setLastName(contact.getLastName());
-        response.setMiddleName(contact.getMiddleName());
-        response.setMobile(contact.getMobile());
-        response.setOffice(contact.getOffice());
-        return response;
-}
+
+//    private boolean mobileNumberExist(String mobile){
+//        Contact contact = contactRepository.findContactsByMobile(mobile);
+//        return contact != null;
+//    }
 
 
     @Override
@@ -52,12 +41,11 @@ public class ContactServiceImpl implements ContactService{
         if (contacts.isEmpty()) throw new ContactNotFoundException(contactName + " not found");
         List <FindContactResponse> responses = new ArrayList<>();
         contacts.forEach(contact -> {
-            responses.add(new FindContactResponse());
+            responses.add(new FindContactResponse(contact));
+           // responses.add(ModelMapper.findContactResponse(contact));
         });
        return responses;
     }
-
-
 
     private List<Contact> findContactByFirstNameOrLastNameOrMiddleName(String contactName) {
         List<Contact> contacts = new ArrayList<>();
@@ -75,9 +63,9 @@ public class ContactServiceImpl implements ContactService{
                 contactRepository.delete(contact);
             }
         });
-        DeleteResponse deleteMessage = new DeleteResponse();
-        deleteMessage.setMessage("Contact Deleted");
-        return deleteMessage;
+        DeleteResponse response = new DeleteResponse();
+        response.setMessage("Contact Deleted");
+        return response;
     }
 
     }
