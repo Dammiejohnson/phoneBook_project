@@ -2,7 +2,6 @@ package africa.semicolon.phoneBook.services;
 
 import africa.semicolon.phoneBook.data.models.Contact;
 import africa.semicolon.phoneBook.data.repositories.ContactRepository;
-//import africa.semicolon.phoneBook.data.repositories.ContactRepositoryImpl;
 import africa.semicolon.phoneBook.dtos.requests.AddContactRequest;
 import africa.semicolon.phoneBook.dtos.responses.AddContactResponse;
 import africa.semicolon.phoneBook.dtos.responses.DeleteResponse;
@@ -30,7 +29,7 @@ public class ContactServiceImpl implements ContactService{
 
 
 //    private boolean mobileNumberExist(String mobile){
-//        Contact contact = contactRepository.findContactsByMobile(mobile);
+//        Contact contact = contactReposittory.findContactsByMobile(mobile);
 //        return contact != null;
 //    }
 
